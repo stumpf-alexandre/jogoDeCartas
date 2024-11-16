@@ -22,7 +22,25 @@
     <title>Yu-Gi-Ho Jo-ken-po Edition</title>
 </head>
 <body>
-    <h1>Ola mundo</h1>
+    <!-- div.bg-video+div.container>(div.container__left+div.container__right) comando -->
+    <div class="bg-video">
+        <video class="video" autoplay loop muted>
+            <source src="./src/assets/video/yugi.mp4" type="video/mp4"/>
+        </video>
+    </div>
+
+    <div class="container">
+        <div class="container__left">
+            <!-- div.score_box+.menu_avatar+.card_details comando -->
+            <div class="score_box"></div>
+            <div class="menu_avatar"></div>
+            <div class="card_details"></div>
+        </div>
+        <div class="container__right">
+            <div class="card-box__container"></div>
+        </div>
+    </div>
+
     <script src="./src/scripts/engine.js" defer></script>
 </body>
 </html>
