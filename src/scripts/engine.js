@@ -81,6 +81,31 @@ async function createCardImage(idCard, fieldSide) {
     return cardImage
 }
 
+/**função para setar minha carta e a do oponente */
+async function setCardField(cardId) {
+    /**remove as cartas que não forão selecionadas para não alterarem o combate */
+    await removeAllCardsImages();
+
+    /**seleciona uma carta aleatoria para o computador */
+    let computerCardId = await getRandomCardId();
+    
+    state.fieldCards.player.style.display = "block";
+    state.fieldCards.computer.style.display = "block";
+
+    /**seta as aimagens no campo de batalha */
+    state.fieldCards.player.src = cardData(cardId).img;
+    state.fieldCards.computer.src = cardData(computerCardId).img;
+
+    /**checa o resultado pelo id */
+    let duelResults = await checkDuelResults(cardId, computerCardId);
+
+    /**atualizar a pontuação */
+    await updateScore();
+
+    /**desenhar o botão conforme o resultado */
+    await drawButton();
+}
+
 /**função de mouse over quando passar o mouse na carta */
 async function drawSelectCard(index) {
     state.cardSprites.avatar.src = cardData[index].img;
