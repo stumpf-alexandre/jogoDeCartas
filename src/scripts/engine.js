@@ -19,6 +19,35 @@ const state = {
     },
 };
 
+const pathImage = "../assets/icons/";
+
+const cardData = [
+    {
+        id:0,
+        name:"Blue Eyes White Dragon",
+        type:"Paper",
+        img:pathImage + "dragon.png",
+        WinOf:[1],
+        LoseOf:[2],
+    },
+    {
+        id:1,
+        name:"Dark Magician",
+        type:"Rock",
+        img:pathImage + "magician.png",
+        WinOf:[2],
+        LoseOf:[1],
+    },
+    {
+        id:2,
+        name:"Exodia",
+        type:"Scissors",
+        img:pathImage + "exodia.png",
+        WinOf:[0],
+        LoseOf:[1],
+    }
+]
+
 function init() {}
 
 init();
