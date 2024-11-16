@@ -20,11 +20,11 @@ const state = {
 };
 
 const playerSides = {
-    player: "player-field-card",
-    computer: "computer-field-card"
+    player: "player-cards",
+    computer: "computer-cards"
 };
 
-const pathImage = "../assets/icons/";
+const pathImage = "./src/assets/icons/";
 
 const cardData = [
     {
@@ -53,9 +53,35 @@ const cardData = [
     }
 ];
 
+async function getRandomCardId() {
+    const randomIndex = Math.floor(Math.random() * cardData.length);
+    return cardData[randomIndex].id;
+}
+
+async function createCardImage(idCard, fieldSide) {
+    const cardImage = document.createElement("img");
+    cardImage.setAttribute("height", "100px");
+    cardImage.setAttribute("src", pathImage + "card-back.png");
+    cardImage.setAttribute("data-id", idCard);
+    cardImage.classList.add("card");
+
+    /**selecionando a carrta para a batalha */
+    if(fieldSide === playerSides.player) {
+        cardImage.addEventListener("click", () => {
+            setCardField(cardImage.getAttribute("data-id"))
+        })
+    }
+
+    /**mostrando a carta no container esquerdo */
+    cardImage.addEventListener("mouseover", () => {
+        drawSelectCard(idCard);
+    });
+    return cardImage
+}
+
 async function drawCards(cardNumbers, fieldSide) {
     for (let i = 0; i < cardNumbers; i++) {
-        const randomIdCard = await getRandomIdCard();
+        const randomIdCard = await getRandomCardId();
         const cardImage = await createCardImage(randomIdCard, fieldSide);
 
         document.getElementById(fieldSide).appendChild(cardImage);
