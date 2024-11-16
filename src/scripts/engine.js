@@ -53,11 +53,13 @@ const cardData = [
     }
 ];
 
+/**função que cria um numero randomico para o id da carta */
 async function getRandomCardId() {
     const randomIndex = Math.floor(Math.random() * cardData.length);
     return cardData[randomIndex].id;
 }
 
+/**função que seta a imagem aos cards dos jogadores conforme o id */
 async function createCardImage(idCard, fieldSide) {
     const cardImage = document.createElement("img");
     cardImage.setAttribute("height", "100px");
@@ -65,20 +67,28 @@ async function createCardImage(idCard, fieldSide) {
     cardImage.setAttribute("data-id", idCard);
     cardImage.classList.add("card");
 
-    /**selecionando a carrta para a batalha */
     if(fieldSide === playerSides.player) {
+        /**selecionando a card para a batalha */
         cardImage.addEventListener("click", () => {
             setCardField(cardImage.getAttribute("data-id"))
-        })
-    }
+        });
 
-    /**mostrando a carta no container esquerdo */
-    cardImage.addEventListener("mouseover", () => {
-        drawSelectCard(idCard);
-    });
+        /**mostrando a carta no container esquerdo */
+        cardImage.addEventListener("mouseover", () => {
+            drawSelectCard(idCard);
+        });
+    }
     return cardImage
 }
 
+/**função de mouse over quando passar o mouse na carta */
+async function drawSelectCard(index) {
+    state.cardSprites.avatar.src = cardData[index].img;
+    state.cardSprites.name.innerText = cardData[index].name;
+    state.cardSprites.type.innerText = "Atribute: " + cardData[index].type;
+}
+
+/**função que distribui cartas randomicamente para os jogadores */
 async function drawCards(cardNumbers, fieldSide) {
     for (let i = 0; i < cardNumbers; i++) {
         const randomIdCard = await getRandomCardId();
@@ -87,6 +97,8 @@ async function drawCards(cardNumbers, fieldSide) {
         document.getElementById(fieldSide).appendChild(cardImage);
     }
 }
+
+/**função principal de iniciar as outras funções */
 function init() {
     drawCards(5, playerSides.player);
     drawCards(5, playerSides.computer);
