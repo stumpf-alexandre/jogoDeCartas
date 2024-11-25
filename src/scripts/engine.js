@@ -99,13 +99,41 @@ async function setCardsField(cardId) {
     state.fieldCards.computer.src = cardData[computerCardId].img;
     
     /**checa o resultado pelo id de quem ganhou*/
-    //let duelResults = await checkDuelResults(cardId, computerCardId);
+    let duelResults = await checkDuelResults(cardId, computerCardId);
 
     /**atualizar a pontuação */
-    //await updateScore();
+    await updateScore();
 
     /**desenhar o botão conforme o resultado */
-    //await drawButton(duelResults);
+    await drawButton(duelResults);
+}
+/**função que incrementa o escore na tela */
+async function updateScore() {
+    state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`;
+}
+
+/**função que cria o botão e o texto do resultado da batalha na tela*/
+async function drawButton(text) {
+    state.actions.button.innerText = text;
+    state.actions.button.style.display = "block";
+}
+
+/**função que verifica quem ganhou e aumenta a pontuação do escore */
+async function checkDuelResults(playerCardId, computerCardId){
+    let duelResults = "Empate";
+    let playerCard = cardData[playerCardId];
+
+    if (playerCard.WinOf.includes(computerCardId)) {
+        duelResults = "Ganhou";
+        state.score.playerScore++;
+    }
+
+    if (playerCard.LoseOf.includes(computerCardId)) {
+        duelResults = "Perdeu";
+        state.score.computerScore++;
+    }
+
+    return duelResults;
 }
 
 /**função que remove todas as cartas, tanto do player quanto do computer, ao iniciar uma jogada*/
