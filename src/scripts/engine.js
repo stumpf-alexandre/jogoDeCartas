@@ -91,12 +91,9 @@ async function setCardsField(cardId) {
     /**seleciona uma carta aleatoria para o computador */
     let computerCardId = await getRandomCardId();
     
-    state.fieldCards.player.style.display = "block";
-    state.fieldCards.computer.style.display = "block";
+    await showHiddenCardFieldsImages(true);
 
-    /**seta as imagens no campo de batalha */
-    state.fieldCards.player.src = cardData[cardId].img;
-    state.fieldCards.computer.src = cardData[computerCardId].img;
+    await drawCardsInField(cardId, computerCardId);
     
     /**checa o resultado pelo id de quem ganhou*/
     let duelResults = await checkDuelResults(cardId, computerCardId);
@@ -107,6 +104,7 @@ async function setCardsField(cardId) {
     /**desenhar o botão conforme o resultado */
     await drawButton(duelResults);
 }
+
 /**função que incrementa o escore na tela */
 async function updateScore() {
     state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`;
@@ -164,14 +162,14 @@ async function drawCards(cardNumbers, fieldSide) {
         document.getElementById(fieldSide).appendChild(cardImage);
     }
 }
+
 /**função que reseta o jogo */
 async function resetDuel() {
     state.cardSprites.avatar.src = "";
     state.cardSprites.name.innerText = "...";
     state.cardSprites.type.innerText = "...";
     state.actions.button.style.display = "none";
-    state.fieldCards.player.style.display = "none";
-    state.fieldCards.computer.style.display = "none";
+    await showHiddenCardFieldsImages(false);
 
     init();
 }
@@ -185,8 +183,29 @@ async function playAudio(status) {
     } catch {}
 }
 
+/**função que mostra imagens ocultas e vice versa */
+async function showHiddenCardFieldsImages(value) {
+    if (value === true) {
+        state.fieldCards.player.style.display = "block";
+        state.fieldCards.computer.style.display = "block";
+    }
+
+    if (value === false) {
+        state.fieldCards.player.style.display = "none";
+        state.fieldCards.computer.style.display = "none";
+    }
+}
+
+/**função que seta as imagens no campo de batalha */
+async function drawCardsInField(cardId, computerCardId) {
+    state.fieldCards.player.src = cardData[cardId].img;
+    state.fieldCards.computer.src = cardData[computerCardId].img;
+}
+
 /**função principal de iniciar as outras funções */
 function init() {
+    showHiddenCardFieldsImages(false);
+
     drawCards(5, state.playerSides.player);
     drawCards(5, state.playerSides.computer);
 }
