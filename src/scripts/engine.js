@@ -86,7 +86,7 @@ async function createCardImage(idCard, fieldSide) {
 /**função para setar minha carta e a do oponente */
 async function setCardsField(cardId) {
     /**remove as cartas que não forão selecionadas para não alterarem o combate */
-    //await removeAllCardsImages();
+    await removeAllCardsImages();
 
     /**seleciona uma carta aleatoria para o computador */
     let computerCardId = await getRandomCardId();
@@ -110,11 +110,13 @@ async function setCardsField(cardId) {
 
 /**função que remove todas as cartas, tanto do player quanto do computer, ao iniciar uma jogada*/
 async function removeAllCardsImages() {
-    let {computerBox, playerBox} = state.playerSides;
-    let imgElements = computerBox.querySelectorAll("img");
+    let cards = state.playerSides.computerBox;
+    let imgElements = cards.querySelectorAll("img");
+    console
     imgElements.forEach((img) => img.remove());
 
-    imgElements = playerBox.querySelectorAll("img");
+    cards = state.playerSides.playerBox;
+    imgElements = cards.querySelectorAll("img");
     imgElements.forEach((img) => img.remove());
 }
 
