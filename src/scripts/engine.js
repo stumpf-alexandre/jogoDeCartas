@@ -162,6 +162,17 @@ async function drawCards(cardNumbers, fieldSide) {
         document.getElementById(fieldSide).appendChild(cardImage);
     }
 }
+/**função que reseta o jogo */
+async function resetDuel() {
+    state.cardSprites.avatar.src = "";
+    state.cardSprites.name.innerText = "...";
+    state.cardSprites.type.innerText = "...";
+    state.actions.button.style.display = "none";
+    state.fieldCards.player.style.display = "none";
+    state.fieldCards.computer.style.display = "none";
+
+    init();
+}
 
 /**função principal de iniciar as outras funções */
 function init() {
