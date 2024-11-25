@@ -17,9 +17,9 @@ const state = {
     },
     playerSides: {
         player: "player-cards",
-        playerBox: document.querySelector("player-cards"),
+        playerBox: document.querySelector("#player-cards"),
         computer: "computer-cards",
-        computerBox: document.querySelector("computer-cards"),
+        computerBox: document.querySelector("#computer-cards"),
     },
     actions:{
         button:document.getElementById("next-duel"),
@@ -110,13 +110,11 @@ async function setCardsField(cardId) {
 
 /**função que remove todas as cartas, tanto do player quanto do computer, ao iniciar uma jogada*/
 async function removeAllCardsImages() {
-    let cards = state.playerSides.computerBox;
-    let imgElements = cards.querySelectorAll("img");
-    console
+    let {computerBox, playerBox} = state.playerSides;
+    let imgElements = computerBox.querySelectorAll("img");
     imgElements.forEach((img) => img.remove());
 
-    cards = state.playerSides.playerBox;
-    imgElements = cards.querySelectorAll("img");
+    imgElements = playerBox.querySelectorAll("img");
     imgElements.forEach((img) => img.remove());
 }
 
