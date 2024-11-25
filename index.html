@@ -25,6 +25,12 @@
     <title>Yu-Gi-Ho Jo-ken-po Edition</title>
 </head>
 <body>
+    <!-- audio -->
+    <audio id="bgm" loop>
+        <source src="./src/assets/audios/egyptian_duel.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- video -->
     <!-- div.bg-video+div.container>(div.container__left+div.container__right) comando -->
     <div class="bg-video">
         <video class="video" autoplay loop muted>
@@ -32,7 +38,10 @@
         </video>
     </div>
     
+    <!-- container da pagina -->
     <div class="container">
+
+        <!-- container esquerdo -->
         <div class="container__left framed-golden-2">
             <!-- div.score_box+.menu_avatar+.card_details comando -->
             <div class="score_box frame">
@@ -47,6 +56,8 @@
                 <p id="card-type">...</p>
             </div>
         </div>
+
+        <!-- container direito -->
         <div class="container__right">
             <div class="card-box__container">
                 <div class="card-box framed" id="computer-cards"></div>
